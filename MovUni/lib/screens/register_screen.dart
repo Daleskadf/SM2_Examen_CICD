@@ -292,7 +292,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Switch(
                           value: _isDriver,
                           onChanged: (value) => setState(() => _isDriver = value),
-                          activeColor: Colors.blue[800],
+                          activeTrackColor: Colors.blue[800],
                         ),
                       ],
                     ),

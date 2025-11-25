@@ -77,18 +77,18 @@ class _EstudianteDashboardState extends State<EstudianteDashboard> {
     }
 
     // Si llegó aquí, está completamente verificado - cambiar a conductor
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    
     try {
       await _sessionService.saveUserRole('conductor');
       
-      if (mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const ConductorDashboard()),
-          (route) => false,
-        );
-      }
+      navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const ConductorDashboard()),
+        (route) => false,
+      );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           content: Text('Error al cambiar a conductor: $e'),
           backgroundColor: Colors.red,

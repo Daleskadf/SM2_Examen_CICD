@@ -804,19 +804,22 @@ class _PasajerosViajeScreenState extends State<PasajerosViajeScreen> {
                   const SizedBox(height: 12),
                   ...metodosPago.map((metodo) {
                     final tipo = metodo['tipo'];
-                    return RadioListTile<String>(
-                      value: tipo,
-                      groupValue: metodoPagoSeleccionado,
-                      onChanged: (value) {
-                        setStateDialog(() {
-                          metodoPagoSeleccionado = value;
-                        });
-                      },
+                    final isSelected = metodoPagoSeleccionado == tipo;
+                    return ListTile(
+                      leading: Icon(
+                        isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+                        color: isSelected ? Colors.blue : Colors.grey,
+                      ),
                       title: Text(tipo),
                       subtitle: tipo == 'Yape' || tipo == 'Plin'
                           ? Text('Número: ${metodo['numero']}')
                           : null,
                       dense: true,
+                      onTap: () {
+                        setStateDialog(() {
+                          metodoPagoSeleccionado = tipo;
+                        });
+                      },
                     );
                   }),
                 ],
@@ -861,6 +864,8 @@ class _PasajerosViajeScreenState extends State<PasajerosViajeScreen> {
       final userData = userSnapshot.data()!;
       passengerName = '${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}'.trim();
     }
+
+    if (!mounted) return;
 
     showDialog(
       context: context,
@@ -928,6 +933,7 @@ class _PasajerosViajeScreenState extends State<PasajerosViajeScreen> {
                         comment: comentarioController.text.trim(),
                       );
                       
+                      if (!dialogContext.mounted) return;
                       Navigator.pop(dialogContext);
                       
                       if (mounted) {
@@ -939,6 +945,7 @@ class _PasajerosViajeScreenState extends State<PasajerosViajeScreen> {
                         );
                       }
                     } catch (e) {
+                      if (!dialogContext.mounted) return;
                       Navigator.pop(dialogContext);
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(

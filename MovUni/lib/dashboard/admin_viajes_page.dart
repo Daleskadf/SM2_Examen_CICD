@@ -75,11 +75,12 @@ class _AdminViajesPageState extends State<AdminViajesPage> {
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
           ElevatedButton(
             onPressed: () async {
+              final navigator = Navigator.of(context);
               await viajesRef.doc(viaje.id).update({
                 'descripcion': descripcionController.text,
                 'hora': horaController.text,
               });
-              Navigator.pop(context);
+              navigator.pop();
             },
             child: const Text('Guardar'),
           ),

@@ -18,7 +18,6 @@ class ConductorDashboard extends StatefulWidget {
 }
 
 class _ConductorDashboardState extends State<ConductorDashboard> {
-  final SessionService _sessionService = SessionService();
   final User? user = FirebaseAuth.instance.currentUser;
   String? _userName;
 
@@ -85,9 +84,6 @@ class _ConductorDashboardState extends State<ConductorDashboard> {
 
   void _cambiarAPasajero(BuildContext context) async {
     try {
-      final sessionService = SessionService();
-      
-      
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -128,22 +124,26 @@ class _ConductorDashboardState extends State<ConductorDashboard> {
         'fecha_respuesta': FieldValue.serverTimestamp(),
       });
 
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Solicitud $status correctamente'),
-          backgroundColor: status == 'aceptada' ? Colors.green : Colors.orange,
-        ),
-      );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Solicitud $status correctamente'),
+            backgroundColor: status == 'aceptada' ? Colors.green : Colors.orange,
+          ),
+        );
+      }
     } catch (e) {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error al $status la solicitud: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error al $status la solicitud: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

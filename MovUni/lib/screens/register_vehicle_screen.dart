@@ -126,13 +126,13 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
                   onPressed: () async {
                     // Cerrar sesión
                     await FirebaseAuth.instance.signOut();
-                    if (mounted) {
-                      // Redirigir al login
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/login',
-                        (route) => false,
-                      );
-                    }
+                    if (!context.mounted) return;
+                    
+                    // Redirigir al login
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/login',
+                      (route) => false,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],

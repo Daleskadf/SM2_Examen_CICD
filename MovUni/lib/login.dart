@@ -240,18 +240,22 @@ class _LoginPageState extends State<LoginPage> {
 
                 try {
                   await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Correo de recuperación enviado a $email')),
-                  );
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Correo de recuperación enviado a $email')),
+                    );
+                  }
                 } on FirebaseAuthException catch (e) {
                   String mensaje = 'Error al enviar el correo';
                   if (e.code == 'user-not-found') {
                     mensaje = 'No existe una cuenta con ese correo.';
                   }
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(mensaje)),
-                  );
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(mensaje)),
+                    );
+                  }
                 }
               },
               child: const Text('Enviar'),

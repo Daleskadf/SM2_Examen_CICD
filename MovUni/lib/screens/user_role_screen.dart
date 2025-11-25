@@ -17,7 +17,7 @@ class _UserRoleScreenState extends State<UserRoleScreen> {
   final SessionService _sessionService = SessionService();
   bool _isLoading = true;
   bool _isDriver = false;
-  bool _vehicleVerified = false;
+  final bool _vehicleVerified = false;
   String _driverStatus = '';
   Map<String, dynamic>? _userData;
 

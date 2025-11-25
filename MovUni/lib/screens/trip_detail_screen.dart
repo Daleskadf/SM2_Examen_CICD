@@ -224,6 +224,8 @@ class TripDetailScreen extends StatelessWidget {
           'fecha': FieldValue.serverTimestamp(),
         });
 
+        if (!context.mounted) return;
+        
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('¡Reserva confirmada! Tu lugar está asegurado.'),
@@ -232,6 +234,8 @@ class TripDetailScreen extends StatelessWidget {
         );
         Navigator.pop(context);
       } catch (e) {
+        if (!context.mounted) return;
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error al reservar: $e'),
@@ -240,6 +244,8 @@ class TripDetailScreen extends StatelessWidget {
         );
       }
     } else {
+      if (!context.mounted) return;
+      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('No hay cupo disponible en este viaje.'),
