@@ -1,4 +1,4 @@
-name: Mobile CI/CD Pipeline
+﻿name: Mobile CI/CD Pipeline
 
 on:
   push:
@@ -17,13 +17,13 @@ jobs:
         uses: actions/checkout@v3
 
       # 2. Configurar el entorno Flutter
-      # OPCIÓN A: FLUTTER 
+      # OPCIÓN A: FLUTTER
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
-      
+
       # Configurar Java para compilar Android
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -33,21 +33,25 @@ jobs:
 
       # 3. Instalar Dependencias
       - name: Install Dependencies
+        working-directory: MovUni
         run: flutter pub get
 
       # 4. Análisis de Calidad (Linting)
       # Si el código está mal escrito, el proceso debe fallar aquí.
       - name: Code Quality Check
+        working-directory: MovUni
         run: flutter analyze
 
       # 5. Ejecutar Pruebas Unitarias
       # Aquí se validarán las 5 funciones que creaste en la Parte 1.
       - name: Run Unit Tests
+        working-directory: MovUni
         run: flutter test
 
       # 6. Construir el Instalable (Build)
       # Generar el APK de Android.
       - name: Build Application
+        working-directory: MovUni
         run: flutter build apk --release
 
       # 7. Subir el Artefacto (Entregable final)
@@ -57,5 +61,4 @@ jobs:
         with:
           name: movuni-app-release
           # Ruta donde Flutter guarda el APK compilado (según tabla oficial)
-          path: build/app/outputs/flutter-apk/*.apk
-          retention-days: 30
+          path: MovUni/build/app/outputs/flutter-apk/*.apk
