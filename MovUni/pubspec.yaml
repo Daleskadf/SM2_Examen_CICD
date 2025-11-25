@@ -1,0 +1,37 @@
+name: movuni
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.2.2
+  introduction_screen: ^3.1.12
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
+  firebase_database: ^11.1.4
+  firebase_auth: ^5.3.1
+  firebase_storage: ^12.3.2
+  google_maps_flutter: ^2.13.1
+  geocoding: ^2.0.5
+  intl: ^0.18.1
+  mockito: ^5.5.1
+  image_picker: ^1.1.0
+  firebase_messaging: ^15.0.4
+  flutter_local_notifications: ^18.0.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.8.0
+  fake_cloud_firestore: ^3.0.3
+  firebase_auth_mocks: 0.14.2
+
+flutter:
+  uses-material-design: true
